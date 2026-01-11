@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/setupexercise.css' %}">
+    <script src="{% static 'js/setupexercise.js' %}" defer></script>
+    <title>Setup Exercise</title>
+</head>
+
+<body>
+    {% if unwalkable_area %}
+    <script>
+        const rawData = '{{ unwalkable_area }}';
+        const unwalkableArea = rawData.split(',').map(Number);
+        console.log("Unwalkable Area:", unwalkableArea);
+    </script>
+    {% endif %}
+    <div class="legend">
+        <h3>Fire Size:</h3>
+        <div class="legend-item">
+            <div class="color-box size1"></div>
+            <div class="number">1</div>
+        </div>
+        <div class="legend-item">
+            <div class="color-box size2"></div>
+            <div class="number">2</div>
+        </div>
+        <div class="legend-item">
+            <div class="color-box size3"></div>
+            <div class="number">3</div>
+        </div>
+        <div class="legend-item">
+            <div class="color-box size4"></div>
+            <div class="number">4</div>
+        </div>
+        <div class="legend-item">
+            <div class="color-box size5"></div>
+            <div class="number">5</div>
+        </div>
+    </div>
+    <h2>Create fires</h2>
+    <div class="layout">
+        <div class="map_container" id="map"></div>
+        <div class="color-picker" id="colorPicker">
+            <div class="color-option" style="background-color: red;" data-color="red" data-code="5"></div>
+            <div class="color-option" style="background-color: rgb(160, 7, 7);" data-color="rgb(160, 7, 7)"
+                data-code="4">
+            </div>
+            <div class="color-option" style="background-color: rgb(139, 77, 6);" data-color="rgb(139, 77, 6)"
+                data-code="3">
+            </div>
+            <div class="color-option" style="background-color: rgb(240, 165, 5);" data-color="rgb(240, 165, 5)"
+                data-code="2"></div>
+            <div class="color-option" style="background-color: rgb(255, 251, 0);" data-color="rgb(255, 251, 0)"
+                data-code="1"></div>
+        </div>
+        <form class="form-box" id="map_infor">
+            {% csrf_token %}
+            <div class="Box">
+                Total Fires:
+                <span class="count-box" id="countValue">0</span>
+            </div>
+            <label for="taskSelect">The number of task</label>
+            <select id="taskSelect" name="taskSelect" size="1" onmousedown="expandSelect(this)"
+                onchange="handleSelectChange(this)" onblur="collapseSelect(this)">
+                {% for fire in fires_info %}
+                <option value="{{ fire.task_number }}">Task {{ fire.task_number }}</option>
+                {% endfor %}
+                <option value="{{ next_task_number }}">Create New Exercise</option>
+            </select>
+            <button id="submit">Submit</button>
+            <a href="{% url 'monitoring' %}" id="monitoring-button">Finish</a>
+        </form>
+    </div>
+    <p id="response-message"></p>
+</body>
+
+</html>

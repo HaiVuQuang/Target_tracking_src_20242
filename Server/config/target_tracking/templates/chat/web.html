@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title> web </title>
+    <style>
+        canvas { display: block; }
+        th, td {
+            text-align: center;
+          }
+        div {
+            border: 3px solid #00008B;
+          }
+        h2 {
+            background:#6a2f89;
+            padding-bottom: 10px;
+            text-align: center;
+            padding-top: 5px;
+            border: 2px solid #c6c6dc;
+          }
+        .con { width: 100%; height: 72vh; }
+    </style>
+</head>
+<body>
+    <div class="container pt-3 my-3 bg-secondary text-white">
+        <h2> Angular Vector For Target Tracking Project </h2>
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>oX</th>
+              <th>oY</th>
+              <th>oZ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="one">0 </td>
+              <td id="two">0 </td>
+              <td id="three">0 </td>
+            </tr>
+      
+          </tbody>
+        </table>
+        <div class="con"></div>
+    </div>
+    
+    <script>
+      oX = 0;
+      oY = 0;
+      oZ = 0;
+      const chatSocket = new WebSocket(
+          'ws://'
+          + window.location.host
+          + '/ws/web/'
+      );
+
+      // onmessage - An event listener to be called when a message is received from the server.
+      chatSocket.onmessage = function(e) {
+          // JSON.parse() converts the JSON object back into the original object,
+          // then examine and act upon its contents.
+          const data = JSON.parse(e.data);
+          if (data.topic == "oX"){
+              document.querySelector('#one').innerText = parseFloat(data.message).toFixed(3);
+              oX = parseFloat(data.message).toFixed(3);
+          }
+          if (data.topic == "oY"){
+              document.querySelector('#two').innerText = parseFloat(data.message).toFixed(3);
+              oY = parseFloat(data.message).toFixed(3);
+          }
+          if (data.topic == "oZ"){
+              document.querySelector('#three').innerText = parseFloat(data.message).toFixed(3);
+              oZ = parseFloat(data.message).toFixed(3);
+          }
+      };
+
+      // onclose - An event listener to be called when the connection is closed.
+      chatSocket.onclose = function(e) {
+          console.error('Chat socket closed unexpectedly');
+      };
+    </script>
+    <script src="{% static 'jquery3.7.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="{% static 'support.js' %}"></script>
+</body>
+</html>

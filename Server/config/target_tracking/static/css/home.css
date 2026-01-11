@@ -1,0 +1,89 @@
+body {
+  font-family: Arial;
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 30px;
+}
+
+header {
+  margin-left: 41%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+header svg {
+  width: 45px;
+  height: 45px;
+  margin-right: 5px;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  font-size: 24px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.table-title {
+  font-size: 16px;
+  background-color: #e2e8f0;
+}
+
+th,
+td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.choose-map {
+  display: inline-block;
+  background-color: #2563eb;
+  color: #fff;
+  padding: 6px 12px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.choose-map:hover {
+  background-color: #1d4ed8;
+}
+
+.new-map {
+  margin-top: 30px;
+  text-align: center;
+}
+
+#designmap-button {
+  display: inline-block;
+  background-color: #16a34a;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+#designmap-button:hover {
+  background-color: #15803d;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}

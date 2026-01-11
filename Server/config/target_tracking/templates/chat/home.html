@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <script> src = "{% static 'jquery3.7.1.js' %}" </script>
+    <script> src = "{% static 'js/bootstrap.min.js' %}" </script>
+    <script src="{% static 'js/home.js' %}" defer></script>
+    <title>Home page</title>
+</head>
+
+<body>
+    <header>
+        <svg viewBox="0 0 24 24">
+            <path d="M3 9.75L12 4l9 5.75M4.5 10.5v9.75h5.25v-6h4.5v6H19.5V10.5" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+        <h1>Home Page</h1>
+    </header>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="7">Available Map</th>
+                </tr>
+                <tr class="table-title">
+                    <th>Map Info ID</th>
+                    <th>Total Units</th>
+                    <th>Area/Unit</th>
+                    <th>Router Number</th>
+                    <th>Router Location</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for map in maps %}
+                <tr>
+                    <td>{{ map.map_infor_id }}</td>
+                    <td>{{ map.total_units }}</td>
+                    <td>{{ map.area_of_one_unit }}</td>
+                    <td>{{ map.router_number }}</td>
+                    <td>{{ map.router_location }}</td>
+                    <td>
+                        {% csrf_token %}
+                        <button type="button" class="choose-map" onclick="colectdata('{{ map.map_infor_id }}')">Collect Data</button>
+                        <button type="button" class="choose-map" onclick="monitoring('{{ map.map_infor_id }}')">Monitoring</button>
+                        <script>
+                        function colectdata(mapId) {
+                            let csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                            fetch("/web/home/", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": csrftoken,
+                                },
+                                body: JSON.stringify({ map_id: mapId })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === "error") {
+                                    console.log(data.message);
+                                } else {
+                                    setTimeout(() => { window.location.href = "/web/collectdata/"; }, 1000);
+                                }
+                            });
+                        }
+                        function monitoring(mapId) {
+                            let csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                            fetch("/web/home/", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": csrftoken,
+                                },
+                                body: JSON.stringify({ map_id: mapId })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === "error") {
+                                    console.log(data.message);
+                                } else {
+                                    setTimeout(() => { window.location.href = "/web/monitoring/"; }, 1000);
+                                }
+                            });
+                        }
+                        </script>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="no-data">No maps available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="new-map">
+        <a href="{% url 'settingmap' %}" id="designmap-button">Design New Map</a>
+    </div>
+</body>
+
+</html>

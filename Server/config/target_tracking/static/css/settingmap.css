@@ -1,0 +1,125 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #34495e;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 40px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-left: 100px;
+}
+
+.layout {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.map_container {
+  display: grid;
+  grid-template-columns: 30px repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px) 30px;
+  gap: 4px;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 25px;
+  flex-shrink: 0;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background-color: lightgray;
+  border: 1px solid #999;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cell.clicked {
+  background-color: #ddd;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #b30000 0,
+    #b30000 3px,
+    transparent 2px,
+    transparent 7px
+  );
+}
+
+.index,
+.cell-empty {
+  font-weight: bold;
+  color: #34495e;
+}
+
+.Box {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+.count-box {
+  display: inline-block;
+  padding: 2px 12px;
+  background-color: white;
+  border: 2px solid #34495e;
+  border-radius: 2px;
+  font-size: 20px;
+  font-weight: normal;
+  margin-left: 2px;
+}
+
+.form-box {
+  flex: 1;
+  min-width: 260px;
+}
+
+.form-box label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.form-box input[type="number"],
+.form-box input[type="text"] {
+  width: 20%;
+  padding: 8px 10px;
+  font-size: 16px;
+  margin-top: 4px;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#submit {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #16a34a;
+  color: white;
+  border: 2px solid #34495e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#submit:hover {
+  background-color: #15803d;
+}
+
+#response-message {
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  color: #e74c3c;
+}

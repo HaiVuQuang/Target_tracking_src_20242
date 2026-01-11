@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/settingmap.css' %}">
+    <script src="{% static 'js/settingmap.js' %}" defer></script>
+    <title>Setting map</title>
+</head>
+
+<body>
+    <h2>Enter the map information</h2>
+    <h3>Click to choose the non-walkable units</h3>
+    <div class="layout">
+        <!-- Chọn ô trong map -->
+        <div class="map_container" id="map"></div>
+        <!-- Nhập thông số -->
+        <form class="form-box" id="map_infor">
+            {% csrf_token %}
+            <div class="Box">
+                Total walkable units:
+                <span class="count-box" id="countValue">100</span>
+            </div>
+
+            <label for="area_of_one_unit">Area of an unit (m²): </label>
+            <input type="number" id="area_of_one_unit" name="area_of_one_unit" step="any" required>
+
+            <label for="router_number">Number of routers: </label>
+            <input type="number" id="router_number" name="router_number" required>
+
+            <label for="router_location">Routers location: </label>
+            <input type="text" id="router_location" name="router_location" required>
+
+            <button type="submit" id="submit">Submit</button>
+            <p id="response-message"></p>
+        </form>
+    </div>
+</body>
+
+</html>

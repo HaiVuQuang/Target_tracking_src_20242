@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/collectdata.css' %}">
+    <script src="{% static 'js/collectdata.js' %}" defer></script>
+    <title>Collect data page</title>
+</head>
+
+<body>
+    <h2>Enter the data information</h2>
+    <form class="form-box" id="data_for_training">
+        {% csrf_token %}
+        <label for="location">Location</label>
+        <input type="number" id="location" name="location" required>
+
+        <label for="axis_x">Axis_x</label>
+        <input type="number" id="axis_x" name="axis_x" step="any" required>
+
+        <label for="axis_y">Axis_y</label>
+        <input type="number" id="axis_y" name="axis_y" step="any" required>
+
+        <label for="number_of_rssi">The number of RSSI</label>
+        <input type="number" id="number_of_rssi" name="number_of_rssi" required>
+        
+        <button id="submit">Submit</button>
+    </form>
+    <!-- Spinner -->
+    <div id="spinner" class="spinner-border text-primary mt-3" role="status" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <p id="response"></p>
+
+    <button id="finish">Finish</button>
+</body>
+
+</html>
